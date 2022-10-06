@@ -5,7 +5,7 @@
     <title>ShopGrids - Bootstrap 5 eCommerce HTML Template.</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
 
     <!-- ========================= CSS here ========================= -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -47,8 +47,8 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
-                        <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
-                        <li><a href="index.html">Shop</a></li>
+                        <li><a href="home"><i class="lni lni-home"></i> Home</a></li>
+                        <li><a href="productList">Shop</a></li>
                         <li>Single Product</li>
                     </ul>
                 </div>
@@ -258,35 +258,6 @@
     <!-- End Review Modal -->
 
    <% include ./footer %>
-
-    <!-- ========================= scroll-top ========================= -->
-    <a href="#" class="scroll-top" style="display: none;">
-        <i class="lni lni-chevron-up"></i>
-    </a>
-
-    <!-- ========================= JS here ========================= -->
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/tiny-slider.js"></script>
-    <script src="assets/js/glightbox.min.js"></script>
-    <script src="assets/js/main.js"></script>
-    <script type="text/javascript">
-        const current = document.getElementById("current");
-        const opacity = 0.6;
-        const imgs = document.querySelectorAll(".img");
-        imgs.forEach(img => {
-            img.addEventListener("click", (e) => {
-                //reset opacity
-                imgs.forEach(img => {
-                    img.style.opacity = 1;
-                });
-                current.src = e.target.src;
-                //adding class 
-                //current.classList.add("fade-in");
-                //opacity
-                e.target.style.opacity = opacity;
-            });
-        });
-    </script>
 
 
 </body></html>

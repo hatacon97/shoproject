@@ -7,7 +7,7 @@
     <title>농수산물 거래사이트</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
@@ -31,7 +31,7 @@
         }
         .tit{
             text-align: center;
-            margin-top: 10px;
+            margin-top: 17px;
           }
   
 
@@ -39,24 +39,31 @@
   </head>
   <body>
     <% include ./header %>
-<div calss="input_container">
     <h1 class="tit">로그인</h1>
-    <div class="mb-3 row">
-        <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="staticEmail" placeholder="이메일을 입력해주세요.">
-        </div>
+    <div class="container my-5">
+      <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+
+        <div calss="input_container">
+          
+          <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="staticEmail" placeholder="이메일을 입력해주세요.">
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+              <div class="col-sm-10">
+                <input type="password" class="form-control" id="inputPassword" placeholder="비밀번호를 입력해주세요.">
+              </div>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button class="btn btn-primary me-md-2" type="button">로그인</button>
+            </div>
+          </div>
+        
       </div>
-      <div class="mb-3 row">
-        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-        <div class="col-sm-10">
-          <input type="password" class="form-control" id="inputPassword" placeholder="비밀번호를 입력해주세요.">
-        </div>
-      </div>
-      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-primary me-md-2" type="button">로그인</button>
-      </div>
-</div>
+    </div>
       <% include ./footer %>
   </body>
 </html>

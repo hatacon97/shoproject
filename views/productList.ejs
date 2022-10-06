@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>농수산물 거래사이트</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/LineIcons.3.0.css">
+    <link rel="stylesheet" href="assets/css/tiny-slider.css">
+    <link rel="stylesheet" href="assets/css/glightbox.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body id="body-pd">
+    <% include ./header %>
+    
+    <section class="trending-product section" style="margin-top: 12px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-12">
+                    <!-- Start Single Product -->
+                    <div class="single-product">
+                        <div class="product-image">
+                            <img src="assets/images/products/product-1.jpg" alt="#">
+                            <div class="button">
+                                <a href="product-detail" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="category">사과/배</span>
+                            <h4 class="title">
+                                <a href="product-detail">사과</a>
+                            </h4>
+                            <ul class="review">
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star"></i></li>
+                                <li><span>4.0 Review(s)</span></li>
+                            </ul>
+                            <div class="price">
+                                <span>10,000원 (kg)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Single Product -->
+                </div>
+                
+                </div>
+            </div>
+        </div>
+      </section>
+
+    <% include ./footer %>
+</body>
+</html>
