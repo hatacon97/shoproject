@@ -1,25 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-  <form action="/home" onclick="login()">
-    아이디 : <input type="text" placeholder="아이디를 입력해주세요."/><br/><br/>
-    비밀번호 : <input type="password" placeholder="비밀번호를 입력해주세요."/><br/>
-    <button id="login">로그인</button>
+    <form action="/login" method="post">
+    아이디 : <input name="loginId" required> <br> <br>
+    패스워드 : <input required>
+    <button id="login"> 로그인 </button>
   </form>
   </body>
   <script>
-    var loginBtn = document.getElementById('login')
-    console.log(loginBtn);
-    function login(){
-      alert('로그인 테스트')
-    }
-    //location.href('')
-    //loginBtn.onclick = function(){
-      //alert('로그인 테스트')
-    //}
+   var loginButton = document.getElementById("login")
+  //  var loginForm = document.getElementById("loginForm")
+  //  console.log(loginButton) 
+  //  loginButton.onclick = function(){
+  //   alert('로그인 테스트');
+  //  }
+  //  location.href('')
   </script>
+
 </html>

@@ -49,17 +49,17 @@
           <div class="mb-3 row">
               <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="user_id" name="user_id" placeholder="이메일을 입력해주세요." required>
+                <input type="text" class="form-control" id="user_email" name="user_email" placeholder="이메일을 입력해주세요." required>
               </div>
             </div>
             <div class="mb-3 row">
               <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
               <div class="col-sm-10">
-                <input type="password" class="form-control" id="inputPassword" placeholder="비밀번호를 입력해주세요." required>
+                <input type="password" class="form-control" id="user_pw" name="user_pw" placeholder="비밀번호를 입력해주세요." required>
               </div>
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <button class="btn btn-primary me-md-2" type="button" id="loginBtn">로그인</button>
+              <button class="btn btn-primary me-md-2" id="login">로그인</button>
             </div>
           </div>
         
@@ -70,6 +70,6 @@
       <% include ./footer %>
   </body>
   <script>
-      var loginBtn = document.getElementById('loginBtn')
+      var loginBtn = document.getElementById('login')
   </script>
 </html>
