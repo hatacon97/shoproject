@@ -3317,7 +3317,8 @@ top: 2px;
 }
 
 .single-product .product-image img {
-  width: 100%;
+  width: 240px;
+  height: 182px;
   -webkit-transition: all 0.4s ease;
   transition: all 0.4s ease;
 }
