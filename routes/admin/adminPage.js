@@ -6,15 +6,14 @@ const {
   ORACLE_CONFIG
 } = require('../../config/db')
 
-router.get('/', async (req,res)=>{
-  let route = req.app.get('views') + '/admin/adminPage';
+router.get('/', async function(req, res, next) {
   let results = await viewAdminPage();
-  res.render(route, {
-    layout: false,
-    results: results,
-    title: "어드민 페이지"
-  })
-  console.log(results)
+  res.render('admin/adminPage', {
+     results: results,
+     title: '관리자 페이지',
+     layout: false
+    });
+    console.log(results)
 });
 
 async function viewAdminPage(){

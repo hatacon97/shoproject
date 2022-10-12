@@ -7,7 +7,8 @@ const home = require('./user/home.js')
 const adminPage = require('./admin/adminPage.js');
 const prodRegiste = require('./admin/prodRegiste.js');
 const prodDetail = require('./user/product-detail.js');
-const registe = require('./user/registe.js');
+const memberRegiste = require('./user/memberRegiste.js');
+const cart = require('./user/cart.js');
 
 
 /* GET home page. */
@@ -33,7 +34,8 @@ router.use('/', login);
 router.use('/user/productList', prodList);
 router.use('/user/home', home);
 router.use('/user/product-detail', prodDetail)
-router.use('/user/registe', registe)
+router.use('/user/memberRegiste', memberRegiste)
+router.use('/user/cart', cart)
 
 // 관리자
 router.use('/admin/adminPage', adminPage);
