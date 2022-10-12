@@ -1,25 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>농수산물 거래사이트</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
 
-    <!-- ========================= CSS here ========================= -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/LineIcons.3.0.css">
-    <link rel="stylesheet" href="assets/css/tiny-slider.css">
-    <link rel="stylesheet" href="assets/css/glightbox.min.css">
-    <link rel="stylesheet" href="assets/css/main.css">
-
-<style> 
-</style>
-</head>
   <body>
-    <% include ./header %>
     <section>
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
@@ -76,9 +56,9 @@
               <!-- Start Single Product -->
               <div class="single-product">
                   <div class="product-image">
-                      <img src="assets/images/products/<%= results[i].PROD_IMG %>" alt="#">
+                      <img src="../assets/images/products/<%= results[i].PROD_IMG %>" alt="#">
                       <div class="button">
-                          <a href="product-detail" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                          <a href="/user/product-detail" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                       </div>
                   </div>
                   <div class="product-info">
@@ -108,8 +88,3 @@
       </div>
   </div>
 </section>
-<!-- End Trending Product Section-->
-    <% include ./footer %>
-   
-  </body>
-</html>

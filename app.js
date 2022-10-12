@@ -5,19 +5,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 const session = require('express-session');
+const expressLayouts = require('express-ejs-layouts');
+
 var oracledb = require('oracledb');
 oracledb.autoCommit = true;
 
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var homeRouter = require('./routes/home')
-var detailRouter = require('./routes/product-detail')
-var loginRouter = require('./routes/login')
-var regiRouter = require('./routes/registe')
-var prodListRouter = require('./routes/productList')
-var prodRegsiteRouter = require('./routes/prodRegsite')
-var adminPageRouter = require('./routes/adminPage')
+var shopRouter = require('./routes/index')
 
 var app = express();
 
@@ -25,21 +18,19 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// 레이아웃 설정
+app.set('layout', 'layout')
+app.set('layout extractScripts', true);
+app.set('layout extractStyles', true);
+app.use(expressLayouts)
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', homeRouter);
-app.use('/users', usersRouter);
-app.use('/test', indexRouter);
-app.use('/product-detail', detailRouter)
-app.use('/login', loginRouter)
-app.use('/registe', regiRouter)
-app.use('/productList', prodListRouter)
-app.use('/prodRegsite', prodRegsiteRouter)
-app.use('/adminPage', adminPageRouter)
+
 
 // 세션 설정
 app.use( // request를 통해 세션 접근 가능 ex) req.session
@@ -56,6 +47,19 @@ app.use( // request를 통해 세션 접근 가능 ex) req.session
   })
 );
 
+// 전역 변수
+app.use(function (req, res, next) {
+  if (req.session.user) {
+    global.sessionName = req.session.user.sessionName;
+    global.sessionEmail = req.session.user.sessionEmail;
+  } else {
+    global.sessionName = undefined;
+    global.sessionEmail = undefined;
+  }
+  next();
+});
+
+app.use('/', shopRouter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

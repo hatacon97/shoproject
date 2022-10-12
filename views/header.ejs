@@ -27,7 +27,7 @@
                 <div class="col-lg-4 col-md-4 col-12">
                     <div class="top-middle">
                         <ul class="useful-links">
-                            <li><a href="/">Home</a></li>
+                            <li><a href="/user/home">Home</a></li>
                             <li><a href="#">About Us</a></li>
                             <li><a href="#">Contact Us</a></li>
                         </ul>
@@ -35,18 +35,28 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-12">
                     <div class="top-end">
+                        <% if(sessionEmail != undefined){ %>
                         <div class="user">
                             <i class="lni lni-user"></i>
-                            아무개님
+                            <%= sessionName %>님
+                            <span>환영합니다.</span>
                         </div>
                         <ul class="user-login">
                             <li>
-                                <a href="login">로그인</a>
-                            </li>
-                            <li>
-                                <a href="registe">회원가입</a>
+                                <a href="/logout">로그아웃</a>
                             </li>
                         </ul>
+                        
+                        <% } else { %>
+                            <ul class="user-login">
+                                <li>
+                                    <a href="/">로그인</a>
+                                </li>
+                                <li>
+                                    <a href="/user/registe">회원가입</a>
+                                </li>
+                            </ul>
+                        <% } %>
                     </div>
                 </div>
             </div>
@@ -59,8 +69,8 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 col-md-3 col-7">
                     <!-- Start Header Logo -->
-                    <a class="navbar-brand" href="/">
-                        <img src="assets/images/logo/logo.png" style="width:150px" alt="Logo">
+                    <a class="navbar-brand" href="/user/home">
+                        <img src="../assets/images/logo/logo.png" style="width:150px" alt="Logo">
                     </a>
                     <!-- End Header Logo -->
                 </div>
@@ -190,7 +200,7 @@
                         <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                             <ul id="nav" class="navbar-nav ms-auto">
                                 <li class="nav-item">
-                                    <a href="/" class="active" aria-label="Toggle navigation">home</a>
+                                    <a href="/user/home" class="active" aria-label="Toggle navigation">home</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"

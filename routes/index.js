@@ -1,10 +1,42 @@
 var express = require('express');
 var router = express.Router();
 
+const login = require('./login');
+const prodList = require('./user/productList.js');
+const home = require('./user/home.js')
+const adminPage = require('./admin/adminPage.js');
+const prodRegiste = require('./admin/prodRegiste.js');
+const prodDetail = require('./user/product-detail.js');
+const registe = require('./user/registe.js');
+
+
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.use('/', (req,res,next) => {
+  if(req.url == '/' || req.url == '/login' || '/user/home') {
+      // console.log("세션 검사 하지않고 로그인페이지로")
+      next();
+  } else {                                            // 로그인 페이지 이외의 페이지에 진입하려고 하는 경우
+      if(req.session.user) {
+          // console.log("세션이 있다.")
+          next();                        // user와 admin이 같은 페이지를 이용할 때 구분해줘야 할 때
+      } else {
+          // console.log("세션이 없다.")
+          res.send("<script>alert('로그인이 필요합니다.');location.href='/'</script>");
+      }
+  }
 });
 
+// 로그인
+router.use('/', login);
+
+// 회원
+router.use('/user/productList', prodList);
+router.use('/user/home', home);
+router.use('/user/product-detail', prodDetail)
+router.use('/user/registe', registe)
+
+// 관리자
+router.use('/admin/adminPage', adminPage);
+router.use('/admin/prodRegiste', prodRegiste);
 
 module.exports = router;

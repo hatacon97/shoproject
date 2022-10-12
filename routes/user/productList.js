@@ -3,13 +3,12 @@ var router = express.Router();
 var oracledb = require('oracledb')
 const {
   ORACLE_CONFIG
-} = require('../config/db')
+} = require('../../config/db')
 
 router.get('/', async (req, res) => {
-  let route = req.app.get('views')+ '/productList';
+  let route = req.app.get('views')+ '/user/productList';
   let results = await selectProduct();
   res.render(route, {
-    layout: false,
     results: results
   })
   console.log(results);
