@@ -15,6 +15,7 @@ router.get('/', (req, res)=>{
 router.post('/login', async (req, res)=>{
   const loginEmail = req.body.loginEmail;
   const lgoinPwd = req.body.loginPw;
+  const userId = req.body.userId;
 
   result = await selectUser(loginEmail, lgoinPwd);
 
@@ -30,7 +31,8 @@ router.post('/login', async (req, res)=>{
         }else{
           req.session.user = {
             sessionEmail:loginEmail,
-            sessionName: userName
+            sessionName: userName,
+            sessionId: userId
           };
           res.redirect('/admin/adminPage');
         }
@@ -40,7 +42,8 @@ router.post('/login', async (req, res)=>{
         } else {
           req.session.user = {
             sessionEmail: loginEmail,
-            sessionName: userName
+            sessionName: userName,
+            sessionId: userId
           };
           res.redirect('/user/home');
         }

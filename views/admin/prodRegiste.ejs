@@ -59,9 +59,11 @@
                           <li><a class="dropdown-item" href="#!">Settings</a></li>
                           <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                           <% if(sessionName != undefined){ %>
-                          <li><hr class="dropdown-divider" /><%= sessionName %></li>
-                          <li><a class="dropdown-item" href="/logout">Logout</a></li>
-                          <% } %>
+                            <li><hr class="dropdown-divider" /><%= sessionName %></li>
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                            <% } else { %>
+                            <li><a class="dropdown-item" href="/">로그인</a></li>
+                            <% } %>
                       </ul>
                   </li>
               </ul>
@@ -149,8 +151,8 @@
                                             <input type="file" class="form-control" id="file" name="file" onchange="readURL(this)" required>
                                         </div>
                                     </div>
-                                    <div>
-                                        <img id="preview" style="float:right">
+                                    <div style="display: grid; grid-template-columns:auto; grid-template-rows:auto;">
+                                        <img id="preview">
                                     </div>
                         
                                     <div class="mb-3 row">
@@ -171,6 +173,17 @@
                                       <label for="staticEmail" class="col-sm-2 col-form-label">상품설명</label>
                                       <span class="input-group-text">상품설명</span>
                                       <textarea id="editor" name="editor" required></textarea>
+                                    </div>
+
+                                    <div class="mb-3 row">
+                                        <label for="staticEmail" class="col-sm-2 col-form-label">추가 첨부파일</label>
+                                        <div class="col-sm-3">
+                                            <input type="file" class="form-control" id="file" name="file">
+                                            <input type="file" class="form-control" id="file" name="file">
+                                            <input type="file" class="form-control" id="file" name="file">
+                                            <input type="file" class="form-control" id="file" name="file">
+                                            <input type="file" class="form-control" id="file" name="file">
+                                        </div>
                                     </div>
                       
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end" id="btnStyle">
@@ -234,12 +247,5 @@
             });
           }
     </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="../js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="../assets/demo/chart-area-demo.js"></script>
-        <script src="../assets/demo/chart-bar-demo.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-        <script src="../js/datatables-simple-demo.js"></script>
     </body>
 </html>

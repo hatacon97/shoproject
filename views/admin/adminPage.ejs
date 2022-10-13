@@ -106,6 +106,7 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
+                                            <th>순번</th>
                                             <th>품명</th>
                                             <th>카테고리코드</th>
                                             <th>상품재고량</th>
@@ -115,6 +116,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                            <th>순번</th>
                                             <th>품명</th>
                                             <th>카테고리코드</th>
                                             <th>상품재고량</th>
@@ -126,15 +128,21 @@
                                     <tbody>
                                         <% for(i=0; i < results.length; i++){ %>
                                         <tr>
+                                            <td><input type="checkbox"><span>  ||  </span><%= results[i].PROD_NO %></td>
                                             <td><%= results[i].PROD_NM %></td>
                                             <td><%= results[i].PROD_DIV %></td>
                                             <td><%= results[i].PROD_CNT %></td>
                                             <td><%= results[i].PROD_PRICE %></td>
+                                            <td><%= results[i].PROD_DATE %></td>
                                         </tr>
                                         <% } %>
                                     </tbody>
                                     
                                 </table>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <button class="btn btn-danger me-md-2">상품삭제</button>
+                                    <button class="btn btn-primary">저장</button>
+                                </div>
                             </div>
                         </div>
                     </div>
