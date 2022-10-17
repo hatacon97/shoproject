@@ -10,6 +10,7 @@ const prodDetail = require('./user/product-detail.js');
 const memberRegiste = require('./user/registe.js');
 const cart = require('./user/cart.js');
 const insertCart = require('./user/insertCart');
+// const payment = require('./user/payment.js');
 
 
 /* GET home page. */
@@ -38,6 +39,7 @@ router.use('/user/product-detail', prodDetail)
 router.use('/user/registe', memberRegiste)
 router.use('/user/cart', cart)
 router.use('/user/insertCart', insertCart)
+// router.use('/user/payment', payment)
 
 // 관리자
 router.use('/admin/adminPage', adminPage);

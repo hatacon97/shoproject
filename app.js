@@ -60,7 +60,6 @@ app.use(function (req, res, next) {
     global.sessionId = undefined;
   }
   next();
-  console.log(global.sessionId);
 });
 
 app.use('/', shopRouter)

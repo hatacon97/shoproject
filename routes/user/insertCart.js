@@ -13,10 +13,11 @@ router.post('/', async function(req, res, next){
     //세션에 저장된 유저 정보
     const userId = req.session.user.sessionId;
     cart = await selectCart(userId);
-    const param = [parseInt(req.body.PROD_NO), parseInt(req.body.count), userId]
+    console.log(cart);
+    const param = [req.body.PROD_NO, req.body.count, userId]
     console.log(param);
     try {
-        if(cart === 0){ //장바구니가 없을떄
+        if(cart == 0){ //장바구니가 없을떄
 
             //장바구니 생성
             await insertCart(userId);
@@ -53,7 +54,7 @@ async function selectCart(userId){
 async function insertCartProduct(param){
     let connection = await oracledb.getConnection(ORACLE_CONFIG);
     var sql2 = "INSERT INTO CART_PRODUCT(cart_prod_no, prod_id, prod_cnt, cart_no)\
-                values ( (select NVL(MAX(CART_PROD_NO),0)+1 FROM CART_PRODUCT), :pord_no, :count,(SELECT CART_NO FROM CART WHERE USER_ID = :userId)) "
+                values ( (select NVL(MAX(CART_PROD_NO),0)+1 FROM CART_PRODUCT), :prodno, :count, (SELECT CART_NO FROM CART WHERE USER_ID = :userId)) "
     let options = {
         outFormat: oracledb.OUT_FORMAT_OBJECT
     };
