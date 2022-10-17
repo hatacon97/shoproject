@@ -9,11 +9,12 @@ const prodRegiste = require('./admin/prodRegiste.js');
 const prodDetail = require('./user/product-detail.js');
 const memberRegiste = require('./user/registe.js');
 const cart = require('./user/cart.js');
+const insertCart = require('./user/insertCart');
 
 
 /* GET home page. */
 router.use('/', (req,res,next) => {
-  if(req.url == '/' || req.url == '/login' || '/user/home') {
+  if(req.url == '/' || req.url == '/login' || req.url == '/user/home') {
       // console.log("세션 검사 하지않고 로그인페이지로")
       next();
   } else {                                            // 로그인 페이지 이외의 페이지에 진입하려고 하는 경우
@@ -36,6 +37,7 @@ router.use('/user/home', home);
 router.use('/user/product-detail', prodDetail)
 router.use('/user/registe', memberRegiste)
 router.use('/user/cart', cart)
+router.use('/user/insertCart', insertCart)
 
 // 관리자
 router.use('/admin/adminPage', adminPage);

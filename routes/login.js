@@ -15,7 +15,6 @@ router.get('/', (req, res)=>{
 router.post('/login', async (req, res)=>{
   const loginEmail = req.body.loginEmail;
   const lgoinPwd = req.body.loginPw;
-  const userId = req.body.userId;
 
   result = await selectUser(loginEmail, lgoinPwd);
 
@@ -24,6 +23,7 @@ router.post('/login', async (req, res)=>{
       res.send('<script>alert("아이디 또는 비밀번호를 잘못 입력했습니다."); location.href = document.referrer;</script>');
     } else {
       const userName = result.USER_NM
+      const userId = result.USER_ID
 
       if(result.USER_AUTH == 'admin'){
         if(req.session.user){
@@ -70,7 +70,7 @@ async function selectUser(user_email, user_pw) {
   try {
     let connection = await oracledb.getConnection(ORACLE_CONFIG);
     
-    let sql = "select user_email, user_nm, user_auth from member \
+    let sql = "select user_id, user_email, user_nm, user_auth from member \
                where user_email = :email and user_pw = :pwd";
     let param = [user_email, user_pw];
     let options ={

@@ -68,8 +68,10 @@
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group quantity">
-                                        <label for="color">수량(선택)</label>
+                                        <label for="color">수량(선택)</label><br/>
+                                        <input type="button" class="btn" onclick="count('plus')" value="+"/>
                                         <input type="number" class="form-control" id="prod_cnt" name="prod_cnt" value="1">
+                                        <input type="button" class="btn" onclick="count('minus')" value="-" />
                                     </div>
                                 </div>
                             </div>
@@ -77,12 +79,13 @@
                                 <div class="row align-items-end">
                                     <div class="col-lg-4 col-md-4 col-12">
                                         <div class="button cart-button">
-                                            <button class="btn" style="width: 100%;">Add to Cart</button>
+                                            <button class="btn" style="width: 100%;" onclick="addCart('<%=prod_detail[0].PROD_NO %>')">장바구니 추가</button>
+                                            
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-12">
                                         <div class="wish-button">
-                                            <button class="btn"><i class="lni lni-heart"></i> To Wishlist</button>
+                                            <button class="btn" style="width: 100%;" onclick="buyProd()">구매하기</button>
                                         </div>
                                     </div>
                                 </div>
@@ -185,4 +188,41 @@
             e.target.style.opacity = opacity;
         });
     });
+
+    function addCart(PROD_NO){
+        console.log(PROD_NO)
+        var count = document.getElementById('prod_cnt').value
+        fetch("/user/insertCart", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                PROD_NO: PROD_NO,
+                count: document.getElementById('prod_cnt').value,
+            }),
+        })
+        .then((response) => response.json())
+        .then(function (data){
+            alert('상품이 장바구니에 담겼습니다.')
+        });
+    }
+
+    function count(type) {
+        //결과를 포시할 element
+        const resultElement = document.getElementById('prod_cnt');
+
+        //현재 화면에 표시된 값
+        let number = resultElement.value;
+
+        //더하기 / 빼기
+        if(type === 'plus'){
+            number = parseInt(number) + 1;
+        } else if(type === 'minus') {
+            number = parseInt(number) -1;
+        }
+
+        //결과 출력
+        resultElement.value = number;
+    }
 </script>
