@@ -57,13 +57,13 @@
                             <h2 class="title"><%= prod_detail[0].PROD_NM %></h2>
                             <p class="category"><i class="lni lni-tag"></i> Drones:<a href="javascript:void(0)">Action
                                     cameras</a></p>
-                            <h3 class="price"><%= prod_detail[0].PROD_PRICE %>원</h3>
+                            <h3 class="price"><%= prod_detail[0].PROD_PRICE.toLocaleString('ko-KR') %>원</h3>
                             <div class="row">
                                 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
                                         <label for="color">남은 재고량:</label>
-                                        <h6><%= prod_detail[0].PROD_CNT %>개</h6>
+                                        <h6><%= prod_detail[0].PROD_CNT.toLocaleString('ko-KR') %>개</h6>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-12">

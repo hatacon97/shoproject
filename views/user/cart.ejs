@@ -24,6 +24,16 @@
             float: right;
             margin: 10px;
         }
+        #del_cart{
+            float: right;
+            margin: 10px;
+            background-color: red;
+        }
+        .final_price{
+            font-weight: bold;
+            text-align: right;
+
+        }
     </style>
 <body>
   
@@ -36,7 +46,8 @@
             <!-- Start Single Product -->
             <form id="cartForm" method="POST" action="">
             <input type="hidden" id="cartChk" name="cartChk">
-            <input type="checkbox" id="chk" name="chk" value="<%=cartProduct[i].PROD_NO %>">
+            <input type="checkbox" id="chk" name="chk" value="<%=cartProduct[i].CART_PROD_NO %>">
+            
             <div class="single-product">
                 <div class="product-image">
                     <img src="../<%= cartProduct[i].PROD_IMG %>" alt="#">
@@ -44,13 +55,13 @@
                 <div class="product-info">
                     <span class="category" id="category"></span>
                     <h4 class="title">
-                        <a href="product-detail?PROD_NO=<%=cartProduct[i].PROD_NO %>"><%= cartProduct[i].PROD_NM %></a>
+                        <a href="product-detail?PROD_NO=<%=cartProduct[i].PROD_ID %>"><%= cartProduct[i].PROD_NM %></a>
                     </h4>
                     <div class="prod_cnt">
                         선택된 수량 : <%= cartProduct[i].PROD_CNT %>
                     </div>
                     <div class="prod_cnt">
-                        총 합계 : <%=cartProduct[i].SUM_PRICE %>
+                        총 합계 : <%=cartProduct[i].SUM_PRICE.toLocaleString('ko-KR') %>
                     </div>
                 </div>
             </div>
@@ -61,14 +72,20 @@
         <% } else { %>
           <h2 class="no_prod"> 장바구니에 상품이 존재하지 않습니다. </h2>
           <% } %>
+          <div>
+            <p class="final_price" id="final_price" name="final_price"></p>
+        </div>
         <div class="button cart-button">
             <button class="btn" id="buy_cart">상품 구매</button>
+            <button class="btn btn-danger" id="del_cart">상품 삭제</button>
         </div>
       </div>
     </div>
   
   </body>
   <script>
+
+    
     window.onload = function(){
         $("#buy_cart").click(function() {
             if(confirm("구매하시겠습니까?") == true){
@@ -85,5 +102,26 @@
                 return;
             };
         });
+        $("#del_cart").click(function() {
+            if(confirm("삭제하시겠습니까?") == true){
+                var chkArr = [];
+                $("input[name=chk]:checked").each(function (){
+                    chkArr.push($(this).val());
+                });
+                console.log(chkArr);
+                $('#cartChk').val(chkArr);
+                console.log($('#cartChk'));
+                    $("#cartForm").attr("action", "cart/del_cartProd");
+                    $("#cartForm").submit();
+            } else {
+                return;
+            };
+        });
     }
+
+
+    
+    var final_price = `<%= sumPrice %>`
+    var price = final_price.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+    document.getElementById('final_price').innerHTML = '<span>'+'총 결제금액 : ' + price +'원' +'</span>';
   </script>

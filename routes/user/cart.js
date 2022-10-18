@@ -8,25 +8,49 @@ const {
 
 router.get('/', async function(req, res, next){
   const userId = req.session.user.sessionId;
-  console.log(userId)
   cart = await selectCart(userId);
-  console.log(cart)
   if(cart == 0){ //장바구니가 없을 시
     //장바구니 생성
     await insertCart(userId);
     //장바구니 물품 조회
     cartProduct = await selectCartProduct(userId);
-    console.log(cartProduct)
   } else {
 
     cartProduct = await selectCartProduct(userId);
-    console.log(cartProduct)
   }
-
+  var sumPrice = 0;
+  for(j=0; j < cartProduct.length; j++){
+    sumPrice += cartProduct[j].SUM_PRICE
+  }
   res.render('user/cart', {
-    cartProduct: cartProduct
+    cartProduct: cartProduct,
+    sumPrice: sumPrice
   });
 });
+
+//장바구니 상품 삭제
+router.post('/del_cartProd', async function(req, res, next){
+  const cartChk = JSON.parse("[" + req.body.cartChk + "]")
+  await delCartProd(cartChk)
+  res.send("<script>alert('장바구니에서 상품이 삭제되었습니다.');location.href='/user/cart'</script>")
+
+});
+async function delCartProd(cartChk){
+  let connection = await oracledb.getConnection(ORACLE_CONFIG)
+
+  var sql4 = "DELETE FROM CART_PRODUCT WHERE CART_PROD_NO = :no"
+  if(cartChk.length > 1){
+    for(i=0; i < cartChk.length-1; i++){
+      sql4 += " OR CART_PROD_NO = :no"
+    }
+  }
+  let options ={
+    outFormat: oracledb.OUT_FORMAT_OBJECT
+  };
+  await connection.execute(sql4, cartChk, options)
+
+  await connection.close();
+}
 
 //장바구니 조회
 async function selectCart(userId){
@@ -67,7 +91,6 @@ async function selectCartProduct(userId){
     outFormat: oracledb.OUT_FORMAT_OBJECT
   };
   let result = await connection.execute(sql3, [userId], options);
-  console.log("===="+result.rows)
   await connection.close();
 
   return result.rows;

@@ -1,14 +1,172 @@
+
+<style>
+    .tit{
+        text-align: center;
+    }
+    .img-fluid{
+        height: 100%;
+        width: 100%;
+    }
+    .prod_nm{
+        text-align: right;
+    }
+    .card{
+        margin: 8px;
+    }
+    .btn{
+        margin: 8px;
+    }
+    .final_price{
+        font-weight: bold;
+        text-align: right;
+    }
+</style>
+
 <body>
+<section class="trending-product section" style="margin-top: 5px;">
     <h1 class="tit">결제</h1>
     <div class="container my-5">
         <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
-            <div>
-                <form action="" id="payment" method="post" autocomplete="off" accept-charset="UTF-8">
-                    <input type="hidden" name="prodCnt">  
-                    <input type="hidden" name="orderListPr" value="<%=cart%>"> 
-                    <input type="hidden" name="prodDetail"> 
-                    <input type="hidden" name="prodDetail"> 
+            <form action="" id="payment" method="post" autocomplete="off" accept-charset="UTF-8">
+                <input type="hidden" name="prodCnt">  
+                <input type="hidden" name="orderListPr" value="<%=cart%>"> 
+                <input type="hidden" name="prodDetail">
+                <input type="hidden" name="prodDetail">
+                    <% for (i=0; i < buyProd.length; i++) { %>
+                        <div class="card mb-3" style="max-width: 700px;">
+                            <div class="row g-0">
+                              <div class="col-md-4">
+                                <img src="../../<%=buyProd[i].PROD_IMG %>" class="img-fluid rounded-start" alt="...">
+                              </div>
+                              <div class="col-md-8">
+                                <div class="card-body">
+                                  <h5 class="card-title">상품명: <%=buyProd[i].PROD_NM %></h5>
+                                  <p class="card-text">상품 가격: <%= buyProd[i].PROD_PRICE.toLocaleString('ko-KR') %></p>
+                                  <p class="card-text">각 상품별 합계: <%= buyProd[i].SUM_PRICE.toLocaleString('ko-KR') %></p>
+                                  <p class="card-text"><small class="text-muted">갯수: <%= buyProd[i].PROD_CNT %></small></p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    <% } %>
+            </form>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="user_nm" name="user_nm" value="<%= member[0].USER_NM %>">
+              <label for="floatingInput">성함</label>
             </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="addr" name="addr" value="<%= member[0].USER_ADDR %>">
+                <label for="floatingInput">주소</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="addrDetail" name="addrDetail" value="<%= member[0].USER_DETAIL_ADDR %>">
+                <label for="floatingPassword">상세주소</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="memPh" name="memPh" value="">
+                <label for="floatingPassword">연락받을 전화번호</label>
+              </div>
+              <div>
+                <p class="final_price" id="final_price" name="final_price"></p>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-primary me-md-2" id="buy_btn"type="button">결제하기</button>
+              </div>   
         </div>  
     </div>
+</section>
 </body>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<script>
+  var final_price = `<%= sumPrice %>`
+  var price = final_price.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+  document.getElementById('final_price').innerHTML = '<span>'+'총 결제금액 : ' + price +'원' +'</span>';
+
+  var user_nm = `<%= member[0].USER_NM %>`
+
+  var user_email = `<%= member[0].USER_EMAIL%>`
+
+  var user_postcode = `<%= member[0].USER_POSTCODE %>`
+
+  var user_addr = `<%= member[0].USER_ADDR %>`
+
+  var user_detail_addr = `<%= member[0].USER_DETAIL_ADDR %>`
+
+  var user_ph = `<%= member[0].USER_PH %>`
+  var ph = user_ph.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`)
+  document.getElementById('memPh').value = ph
+
+  var autoHypenPhone = function(str){
+    str = str.replace(/[^0-9]/g, '');
+    var tmp = '';
+    if( str.length < 4){
+        return str;
+    }else if(str.length < 7){
+        tmp += str.substr(0, 3);
+        tmp += '-';
+        tmp += str.substr(3);
+        return tmp;
+    }else if(str.length < 11){
+        tmp += str.substr(0, 3);
+        tmp += '-';
+        tmp += str.substr(3, 3);
+        tmp += '-';
+        tmp += str.substr(6);
+        return tmp;
+    }else{              
+        tmp += str.substr(0, 3);
+        tmp += '-';
+        tmp += str.substr(3, 4);
+        tmp += '-';
+        tmp += str.substr(7);
+        return tmp;
+    }
+
+    return str;
+}
+
+
+var phoneNum = document.getElementById('memPh');
+
+phoneNum.onkeyup = function(){
+console.log(this.value);
+this.value = autoHypenPhone( this.value ) ;  
+}
+
+
+    window.onload = function(){
+        $("#buy_btn").click(function () {
+          var phoneNum = document.getElementById('memPh').value;
+          console.log(phoneNum)
+          if (confirm("결제하시겠습니까?") == true) {
+            var IMP = window.IMP; 
+              IMP.init('imp71612151'); 
+              IMP.request_pay({
+                pg : "kakaopay", 
+                  pay_method : 'card',
+                  merchant_uid : 'merchant_' + new Date().getTime(),
+                  name : '결제',
+                  amount : price,
+                  buyer_email : user_email,
+                  buyer_name : user_nm,
+                  buyer_tel : phoneNum,
+                  buyer_addr : user_addr,
+                  buyer_postcode : user_postcode,
+                  m_redirect_url : 'redirect url'
+              }, function(rsp) {
+                  if ( rsp.success ) {
+                      var msg = '결제가 완료되었습니다.';
+                      location.href='/user/home';
+                  } else {
+                      var msg = '결제에 실패하였습니다.';
+                      rsp.error_msg;
+                      
+                  }
+              });
+          } else {
+            return;
+          };
+        });
+      }
+
+</script>
