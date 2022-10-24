@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 const session = require('express-session');
 const expressLayouts = require('express-ejs-layouts');
+var cors = require('cors');
 
 var oracledb = require('oracledb');
 oracledb.autoCommit = true;
@@ -24,6 +25,7 @@ app.set('layout extractScripts', true);
 app.set('layout extractStyles', true);
 app.use(expressLayouts)
 
+app.use(cors())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

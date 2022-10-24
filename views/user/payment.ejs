@@ -79,6 +79,7 @@
 </section>
 </body>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script>
   var final_price = `<%= sumPrice %>`
   var price = final_price.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
@@ -162,11 +163,11 @@ this.value = autoHypenPhone( this.value ) ;
                       $("input[name=cart_prod_no]").each(function (){
                         noArr.push($(this).val());
                     });
-                    fetch("http://localhost:3000/user/payment/buyProd", {
+                    fetch("/user/payment/buyProd", {
                       method: 'POST',
                       cache: 'no-cache',
                       headers: {
-                        'Context-type': 'application/json'
+                        'Context-type': 'application/json',
                       },
                       body: JSON.stringify({
                         cart_prod_no: noArr
@@ -176,7 +177,6 @@ this.value = autoHypenPhone( this.value ) ;
                       alert(msg)
                       location.href='/';
                     })
-                      console.log(noArr);
                   } else {
                       var msg = '결제에 실패하였습니다.';
                       rsp.error_msg;
