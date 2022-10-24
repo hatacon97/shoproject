@@ -8,6 +8,7 @@ const {
 
 //결제 페이지로 이동
 router.post('/', async function(req, res, next){
+
     const userId = req.session.user.sessionId;
     const cartChk = JSON.parse("[" + req.body.cartChk + "]")
     const buyProd = await selectCartProd(cartChk)
@@ -16,7 +17,6 @@ router.post('/', async function(req, res, next){
     for(i=0; i < buyProd.length; i++){
         sumPrice += buyProd[i].SUM_PRICE;
     }
-
     res.render('user/payment', {
         buyProd: buyProd,
         sumPrice: sumPrice,
@@ -25,8 +25,17 @@ router.post('/', async function(req, res, next){
 });
 
 router.post('/buyProd', async function(req, res, next){
+
+    const cart_prod_no = req.body.cart_prod_no;
+    console.log(cart_prod_no);
+    for(j=0; j<cart_prod_no.length; j++){
+        await updateProduct([cart_prod_no[j]])
+    }
+    
     const param = [req.body.prodNM, path[0], req.body.prodPrice, req.body.prodDetail, req.body.prodCnt, req.body.prodDiv]
     await insertProduct(param)
+
+    await delCartProd(cart_prod_no);
 
     res.send("<script>alert('정상적으로 구매가 완료 되었습니다.');location.href='/user/home'</script>");
 });
@@ -70,6 +79,38 @@ async function selectMember(userId){
     await connection.close();
 
     return result2.rows;
+}
+
+async function delCartProd(cart_prod_no){
+    let connection = await oracledb.getConnection(ORACLE_CONFIG);
+
+    let options = {
+        outFormat: oracledb.OUT_FORMAT_OBJECT
+    };
+    var sql = "DELETE FROM CART_PRODUCT WHERE CART_PROD_NO = :cart_prod_no";
+
+    if(cart_prod_no.length > 1){
+        for(i=0; i<cart_prod_no.length-1; i++){
+            sql += "OR CART_PROD_NO = :cart_prod_no"
+        }
+    }
+
+    await connection.execute(sql, cartProdNo, options)
+
+    await connection.close();
+}
+
+async function updateProduct(cart_prod_no){
+    let connection = await oracledb.getConnection(ORACLE_CONFIG);
+
+    let options ={
+        outFormat: oracledb.OUT_FORMAT_OBJECT
+    }
+    var sql = "UPDATE PRODUCT SET PROD_CNT = PROD_CNT - (SELECT PROD_CNT FROM CART_PRODUCT WHERE CART_PROD_NO = :no) WHERE PROD_NO = :no2";
+    console.log(cart_prod_no)
+    await connection.execute(sql, [cart_prod_no[0], cart_prod_no[0]], options)
+
+    await connection.close();
 }
 
 module.exports = router;
