@@ -162,8 +162,9 @@ this.value = autoHypenPhone( this.value ) ;
                       var noArr = [];
                       $("input[name=cart_prod_no]").each(function (){
                         noArr.push($(this).val());
-                    });
-                    fetch("/user/payment/buyProd", {
+                      });
+                      console.log(noArr);
+                    fetch("http://localhost:3000/user/payment/buyProd", {
                       method: 'POST',
                       cache: 'no-cache',
                       headers: {
@@ -174,8 +175,8 @@ this.value = autoHypenPhone( this.value ) ;
                       })
                     }).then((response) => response.json()).then((data) => {
                       console.log(data);
-                      alert(msg)
-                      location.href='/';
+                      alert(data)
+                      location.href='/user/home';
                     })
                   } else {
                       var msg = '결제에 실패하였습니다.';

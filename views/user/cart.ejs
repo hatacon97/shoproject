@@ -60,7 +60,7 @@
                     <div class="prod_cnt">
                         선택된 수량 : <%= cartProduct[i].PROD_CNT %>
                     </div>
-                    <div class="prod_cnt">
+                    <div class="prod_cnt" id="prod_price">
                         총 합계 : <%=cartProduct[i].SUM_PRICE.toLocaleString('ko-KR') %>
                     </div>
                 </div>
@@ -84,7 +84,6 @@
   
   </body>
   <script>
-
     
     window.onload = function(){
         $("#buy_cart").click(function() {
@@ -119,8 +118,14 @@
         });
     }
 
-
+    var pr = []
+    for(var i=0; i < pr.length; i++){
+        pr = document.getElementById('prod_price')
+    }
+    console.log(pr)
     
+
+
     var final_price = `<%= sumPrice %>`
     var price = final_price.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
     document.getElementById('final_price').innerHTML = '<span>'+'총 결제금액 : ' + price +'원' +'</span>';

@@ -25,19 +25,16 @@ router.post('/', async function(req, res, next){
 });
 
 router.post('/buyProd', async function(req, res, next){
-
-    const cart_prod_no = req.body.cart_prod_no;
+    console.log(req.body)
+    const cart_prod_no = ['9','8'];
     console.log(cart_prod_no);
     for(j=0; j<cart_prod_no.length; j++){
         await updateProduct([cart_prod_no[j]])
+        await delCartProd([cart_prod_no[j]]);
     }
     
-    const param = [req.body.prodNM, path[0], req.body.prodPrice, req.body.prodDetail, req.body.prodCnt, req.body.prodDiv]
-    await insertProduct(param)
 
-    await delCartProd(cart_prod_no);
-
-    res.send("<script>alert('정상적으로 구매가 완료 되었습니다.');location.href='/user/home'</script>");
+    res.send({msg : 'success'});
 });
 
 //상품 등록
@@ -89,13 +86,8 @@ async function delCartProd(cart_prod_no){
     };
     var sql = "DELETE FROM CART_PRODUCT WHERE CART_PROD_NO = :cart_prod_no";
 
-    if(cart_prod_no.length > 1){
-        for(i=0; i<cart_prod_no.length-1; i++){
-            sql += "OR CART_PROD_NO = :cart_prod_no"
-        }
-    }
 
-    await connection.execute(sql, cartProdNo, options)
+    await connection.execute(sql, cart_prod_no, options)
 
     await connection.close();
 }
